@@ -27,7 +27,7 @@ class NeuralNetwork:
             self.activation = tanh
             self.activation_deriv = tanh_deriv
 
-        np.random.seed(1)
+        # np.random.seed(1)
         self.weights = []
         for i in range(1, len(layers) - 1):
             self.weights.append(
