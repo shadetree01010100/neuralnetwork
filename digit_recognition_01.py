@@ -26,7 +26,7 @@ def image_labels():
         return np.array(labels)
 
 inputs = 784
-hidden = 100
+hidden = 300
 outputs = 10
 activation = 'logistic'
 X = image_input()
