@@ -101,6 +101,7 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                 prediction = [(a, round(b * 100, 2)) for a, b in \
                     enumerate(output) if b == max(output)][0]
                 losers = [b for b in output if b != max(output)]
+                # todo: runner-up can equal prediction, fix it
                 runner_up = [(a, round(b * 100, 2)) for a, b in \
                     enumerate(losers) if b == max(losers)][0]
                 test_images.seek(image_offset, 0)
