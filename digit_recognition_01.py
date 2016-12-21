@@ -26,7 +26,7 @@ def image_labels():
         return np.array(labels)
 
 inputs = 784
-hidden = 300
+hidden = 500
 outputs = 10
 activation = 'logistic'
 X = image_input()
@@ -45,9 +45,12 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
         passes = 0
         fail_conf = 0
         pass_conf = 0
+        image_num = -1
+        fails = []
         print('\ntesting {} images ...'.format(count))
         errors = {}
         for c in range(count):
+            image_num += 1
             image_offset = c * 784 + 16
             label_offset = c + 8
             test_images.seek(image_offset, 0)
@@ -64,6 +67,7 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                 if prediction[0] not in errors.keys():
                     errors[prediction[0]] = 1
                 errors[prediction[0]] += 1
+                fails.append(image_num)
                 fail_conf += prediction[1]
                 failures += 1
                 avg_fail_conf = round(fail_conf / failures * 100, 1)
@@ -83,11 +87,15 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                 k, '#' * percent, ' ' * (10 - percent)
             ))
         # view and test individual images from test images
+        i = -1
         while True:
-            print('\ntest image number (Q to Quit): ', end = '')
+            i += 1
+            print('\nJump to test image number, or Q to Quit, [ENTER] to iterate failures: ', end = '')
             user = input()
             if user.upper() == 'Q':
                 break
+            if not user:
+                user = fails[i]
             try:
                 image_offset = int(user) * 784 + 16
                 label_offset = int(user) + 8                
@@ -100,7 +108,7 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                 output = [n for n in nn.predict(X)]
                 prediction = [(a, round(b * 100, 2)) for a, b in \
                     enumerate(output) if b == max(output)][0]
-                losers = [b for b in output if b != max(output)]
+                losers = [(b if b != max(output) else 0) for b in output]
                 # todo: runner-up can equal prediction, fix it
                 runner_up = [(a, round(b * 100, 2)) for a, b in \
                     enumerate(losers) if b == max(losers)][0]
