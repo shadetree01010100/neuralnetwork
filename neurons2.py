@@ -13,7 +13,7 @@ def logistic_derivative(x):
     return logistic(x)*(1-logistic(x))
 
 class NeuralNetwork:
-    def __init__(self, layers, activation='tanh'):
+    def __init__(self, layers, activation='tanh', seed=False):
         """
         :param layers: A list containing the number of units in each layer.
         Should be at least two values
@@ -21,7 +21,8 @@ class NeuralNetwork:
         "logistic" or "tanh"
         """
         
-        # np.random.seed(1)
+        if seed:
+            np.random.seed(seed)
         
         if activation == 'logistic':
             self.activation = logistic

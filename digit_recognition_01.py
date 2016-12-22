@@ -26,17 +26,40 @@ def image_labels():
         return np.array(labels)
 
 #configure network
-inputs = 784
-hidden = 300
-outputs = 10
-epochs = 10000
-learning_rate = 0.2
+layers = []
+print('[ENTER] to use a basic working network, otherwise enter parameters')
+print('inputs (784): ', end='')
+user = input()
+if not user:
+    layers = [784, 300, 10]
+    epochs = 10000
+    learning_rate = 0.2
+else:
+    layers.append(int(user))
+    print('hidden layers: ', end='')
+    hidden_layers = int(input())
+    for x in range(hidden_layers):
+        print('layer {} nodes: '.format(x+1), end='')
+        layers.append(int(input()))
+    print('outputs (10): ', end='')
+    layers.append(int(input()))
+    print('max training iterations (10000): ', end='')
+    epochs = int(input())
+    print('learning rate (0.2): ', end='')
+    learning_rate = float(input())
+seed = False
+print('[ENTER] to use random starting weights, otherwise enter seed')
+print('random seed: ', end='')
+user = input()
+if user:
+    seed = int(user)
+
 activation = 'logistic'
 
 X = image_input()
 y = image_labels()
-print('building network ... {}->{}->{}'.format(inputs, hidden, outputs))
-nn = NeuralNetwork([inputs,hidden,outputs], activation)
+print('building network ... {}'.format('->'.join([str(n) for n in layers])))
+nn = NeuralNetwork(layers, activation, seed)
 print('training, {} iterations ...'.format(epochs))
 nn.fit(X, y, learning_rate, epochs)
 
@@ -127,9 +150,9 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                         )
                     )
                 if int(label) == prediction[0]:
-                    print('{} SUCCESS!'.format(user))
+                    print('#{} SUCCESS!'.format(user))
                 else:
-                    print('{} FAILURE!'.format(user))
+                    print('#{} FAILURE!'.format(user))
                 print('label:\t\t{}'.format(label))
                 print('predicted:\t{}\t{}%'.format(
                     prediction[0], prediction[1]
