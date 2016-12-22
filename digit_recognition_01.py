@@ -27,13 +27,12 @@ def image_labels():
 
 #configure network
 layers = []
+seed = False
 print('[ENTER] to use a basic working network, otherwise enter parameters')
 print('inputs (784): ', end='')
 user = input()
 if not user:
     layers = [784, 300, 10]
-    epochs = 10000
-    learning_rate = 0.2
 else:
     layers.append(int(user))
     print('hidden layers: ', end='')
@@ -47,7 +46,16 @@ else:
     epochs = int(input())
     print('learning rate (0.2): ', end='')
     learning_rate = float(input())
-seed = False
+print('[ENTER] to use default training setup, otherwise enter parameters')
+print('iterations (10000): ', end='')
+user = input()
+if not user:
+    epochs = 10000
+    learning_rate = 0.2
+else:
+    epochs = int(user)
+    print('learning rate (0.2): ', end='')
+    learning_rate = float(input())
 print('[ENTER] to use random starting weights, otherwise enter seed')
 print('random seed: ', end='')
 user = input()
@@ -58,9 +66,9 @@ activation = 'logistic'
 
 X = image_input()
 y = image_labels()
-print('building network ... {}'.format('->'.join([str(n) for n in layers])))
+print('building {} network ...'.format('->'.join([str(n) for n in layers])))
 nn = NeuralNetwork(layers, activation, seed)
-print('training, {} iterations ...'.format(epochs))
+print('training, {} iterations, {} learning rate ...'.format(epochs, learning_rate))
 nn.fit(X, y, learning_rate, epochs)
 
 # run test data and determine error rate
