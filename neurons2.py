@@ -20,6 +20,9 @@ class NeuralNetwork:
         :param activation: The activation function to be used. Can be
         "logistic" or "tanh"
         """
+        
+        # np.random.seed(1)
+        
         if activation == 'logistic':
             self.activation = logistic
             self.activation_deriv = logistic_derivative
@@ -27,7 +30,6 @@ class NeuralNetwork:
             self.activation = tanh
             self.activation_deriv = tanh_deriv
 
-        # np.random.seed(1)
         self.weights = []
         for i in range(1, len(layers) - 1):
             self.weights.append(

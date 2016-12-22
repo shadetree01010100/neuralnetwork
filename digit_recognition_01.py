@@ -25,16 +25,20 @@ def image_labels():
             labels.append(output)
         return np.array(labels)
 
+#configure network
 inputs = 784
-hidden = 500
+hidden = 300
 outputs = 10
+epochs = 10000
+learning_rate = 0.2
 activation = 'logistic'
+
 X = image_input()
 y = image_labels()
 print('building network ... {}->{}->{}'.format(inputs, hidden, outputs))
 nn = NeuralNetwork([inputs,hidden,outputs], activation)
-print('training ...')
-nn.fit(X,y)
+print('training, {} iterations ...'.format(epochs))
+nn.fit(X, y, learning_rate, epochs)
 
 # run test data and determine error rate
 with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
@@ -117,7 +121,7 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                     row = [b / 255 for b in test_images.read(28)]
                     print(
                         ''.join(
-                            ['#' if b > .5 else '+' if b > 0 else ' ' \
+                            ['#' if b >= .75 else '+' if b > 0 else ' ' \
                                 for b in row
                             ]
                         )
