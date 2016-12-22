@@ -144,7 +144,7 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                     row = [b / 255 for b in test_images.read(28)]
                     print(
                         ''.join(
-                            ['#' if b >= .75 else '+' if b > 0 else ' ' \
+                            ['#' if b > .5 else '+' if b > 0 else ' ' \
                                 for b in row
                             ]
                         )
