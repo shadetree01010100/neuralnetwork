@@ -2,15 +2,15 @@
 
 Configurable Artifical Neural Network applied to reading handwriting samples. Run `digit_recogintion` in Python3, and you will be given options for network configuration and training.
 
-##Default Configurations
+## Default Configurations
  * Network: 784 inputs (28x28 pixel input images), 1 hidden layer of 300 nodes, 10 ouputs
  * Training: 10,000 iterations, 0.2 learning rate
  * Starting Weights: Random values, or input random number seed for repeatable results
 
-##Execution
+## Execution
 Loads 60,000 training images, trains for the specified iterations, and returns mean system error. Loads 10,000 test images, runs each through the trained network, and returns the rate of mis-identifaction along with average pass/fail probabilites and a simple chart of mis-identification by digit.
 
-##Viewing Images
+## Viewing Images
 After execution, you can view any of the 10,000 test images, or press enter to view each mis-identifed digit one at a time.
 
 Sources for network and images to be added soon.
