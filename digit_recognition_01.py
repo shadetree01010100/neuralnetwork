@@ -42,10 +42,6 @@ else:
         layers.append(int(input()))
     print('outputs (10): ', end='')
     layers.append(int(input()))
-    print('max training iterations (10000): ', end='')
-    epochs = int(input())
-    print('learning rate (0.2): ', end='')
-    learning_rate = float(input())
 print('[ENTER] to use default training setup, otherwise enter parameters')
 print('iterations (10000): ', end='')
 user = input()
@@ -168,5 +164,8 @@ with open('handwriting/t10k-images.idx3-ubyte', 'rb') as test_images:
                 print(
                     'runner up: \t{}\t{}%'.format(runner_up[0], runner_up[1])
                 )
+                plt.plot(output)
+                plt.ylim((0,1))
+                plt.show()
             except Exception as e:
                 print(e)

@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def tanh(x):
     return np.tanh(x)
@@ -46,6 +47,7 @@ class NeuralNetwork:
         temp[:, 0:-1] = X  # adding the bias unit to the input layer
         X = temp
         y = np.array(y)
+        error_rate = []
 
         for k in range(epochs):
             i = np.random.randint(X.shape[0])
@@ -54,6 +56,8 @@ class NeuralNetwork:
             for l in range(len(self.weights)):
                 a.append(self.activation(np.dot(a[l], self.weights[l])))
             error = y[i] - a[-1]
+            mean_error = round(np.mean(np.abs(error)) * 100, 1)
+            error_rate.append(mean_error)
             deltas = [error * self.activation_deriv(a[-1])]
 
             for l in range(len(a) - 2, 0, -1): # we need to begin at the second to last layer
@@ -65,9 +69,10 @@ class NeuralNetwork:
                 layer = np.atleast_2d(a[i])
                 delta = np.atleast_2d(deltas[i])
                 self.weights[i] += learning_rate * layer.T.dot(delta)
-        print('{}% mean system error'.format(
-            round(np.mean(np.abs(error)) * 100, 1)
-        ))
+        print('{}% mean system error'.format(mean_error))
+        plt.plot(error_rate)
+        plt.ylim((0,100))
+        plt.show()
 
     def predict(self, x):
         x = np.array(x)
