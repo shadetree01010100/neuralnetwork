@@ -17,4 +17,6 @@ Loads 60,000 training images, trains for the specified iterations, and returns m
 ## Viewing Images
 After execution, you can view any of the 10,000 test images, or press enter to view each mis-identifed digit one at a time.
 
-Sources for network and images to be added soon.
+# sigmoids.py
+
+Demonstration of using derivative of standard logistic function, until limit of floating points.
