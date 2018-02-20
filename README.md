@@ -1,4 +1,8 @@
-# neuralnetwork
+# grad_desc-04.py
+
+Neural Net made to visualize underlying math operations, includes a nifty visualization as the network learns an XOR logic gate.
+
+# digit_recognition_01.py
 
 Configurable Artifical Neural Network applied to reading handwriting samples. Run `digit_recogintion` in Python3, and you will be given options for network configuration and training.
 
